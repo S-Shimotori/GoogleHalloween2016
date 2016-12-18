@@ -2,6 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "Position.h"
 #include <string>
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -45,6 +46,7 @@ bool Top::init()
 
 void Top::setScoreLabel(int newScore)
 {
+    this->score = newScore;
     if (this->scoreLabel != NULL) {
         // TODO: Refactoring
         if (newScore <= 0) {
@@ -61,6 +63,11 @@ void Top::setScoreLabel(int newScore)
             this->scoreLabel->setString(std::to_string(newScore));
         }
     }
+}
+
+void Top::incrementScore() {
+    this->score += 1;
+    this->setScoreLabel(this->score);
 }
 
 void Top::menuCloseCallback(Ref* pSender)
