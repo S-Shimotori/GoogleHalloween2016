@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3" package="net.terminal-end" version="1.0.0">
+    <ui-application appid="net.terminal-end" exec="hellocpp" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>GoogleHalloween2016</label>
+        <icon>GoogleHalloween2016.png</icon>
+    </ui-application>
+</manifest>
