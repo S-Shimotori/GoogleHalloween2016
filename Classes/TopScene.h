@@ -5,6 +5,11 @@
 
 class Top : public cocos2d::Layer
 {
+private:
+    cocos2d::Label* scoreLabel;
+
+    void setScoreLabel(int newScore);
+
 public:
     static cocos2d::Scene* createScene();
 

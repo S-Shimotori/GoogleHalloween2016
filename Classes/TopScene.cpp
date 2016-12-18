@@ -1,6 +1,7 @@
 #include "TopScene.h"
 #include "SimpleAudioEngine.h"
 #include "Position.h"
+#include <string>
 
 USING_NS_CC;
 
@@ -28,10 +29,11 @@ bool Top::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    auto label = Label::createWithTTF("Top", "fonts/arial.ttf", 24);
-    label->setPosition(Position::create(label->getContentSize(), 0.5, 1, 0, 0.5));
-
-    this->addChild(label, 1);
+    this->scoreLabel = Label::create();
+    this->scoreLabel->setTTFConfig(TTFConfig("fonts/Marker Felt.ttf", 24, GlyphCollection::DYNAMIC));
+    setScoreLabel(0);
+    scoreLabel->setPosition(Position::create(scoreLabel->getContentSize(), 0.5, 1, 0, 0.5));
+    this->addChild(scoreLabel, 1);
 
     auto sprite = Sprite::create("HelloWorld.png");
     sprite->setPosition(Position::create(sprite->getContentSize(), 0.5, 0.5, 0, 0));
@@ -41,6 +43,25 @@ bool Top::init()
     return true;
 }
 
+void Top::setScoreLabel(int newScore)
+{
+    if (this->scoreLabel != NULL) {
+        // TODO: Refactoring
+        if (newScore <= 0) {
+            this->scoreLabel->setString("0000");
+        } else if (newScore < 10) {
+            this->scoreLabel->setString("000" + std::to_string(newScore));
+        } else if (newScore < 100) {
+            this->scoreLabel->setString("00" + std::to_string(newScore));
+        } else if (newScore < 1000) {
+            this->scoreLabel->setString("0" + std::to_string(newScore));
+        } else if (newScore >= 9999) {
+            this->scoreLabel->setString("9999");
+        } else {
+            this->scoreLabel->setString(std::to_string(newScore));
+        }
+    }
+}
 
 void Top::menuCloseCallback(Ref* pSender)
 {
