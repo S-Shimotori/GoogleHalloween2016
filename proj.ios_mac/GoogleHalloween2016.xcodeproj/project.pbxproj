@@ -63,6 +63,8 @@
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		B5C2E3491E0675F500FD257C /* TopScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5C2E3471E0675F500FD257C /* TopScene.cpp */; };
 		B5C2E3531E06844000FD257C /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5C2E3511E06844000FD257C /* Position.cpp */; };
+		B5E50A891E08015F007CD23D /* Ghost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5E50A871E08015F007CD23D /* Ghost.cpp */; };
+		B5E50A8B1E08030D007CD23D /* obake.png in Resources */ = {isa = PBXBuildFile; fileRef = B5E50A8A1E08030D007CD23D /* obake.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -169,6 +171,9 @@
 		B5C2E3481E0675F500FD257C /* TopScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopScene.h; sourceTree = "<group>"; };
 		B5C2E3511E06844000FD257C /* Position.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Position.cpp; path = ../Models/Position.cpp; sourceTree = "<group>"; };
 		B5C2E3521E06844000FD257C /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Position.h; path = ../Models/Position.h; sourceTree = "<group>"; };
+		B5E50A871E08015F007CD23D /* Ghost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Ghost.cpp; path = ../Models/Ghost.cpp; sourceTree = "<group>"; };
+		B5E50A881E08015F007CD23D /* Ghost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ghost.h; path = ../Models/Ghost.h; sourceTree = "<group>"; };
+		B5E50A8A1E08030D007CD23D /* obake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = obake.png; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -303,6 +308,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B5E50A8A1E08030D007CD23D /* obake.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
@@ -379,6 +385,8 @@
 			children = (
 				B5C2E3511E06844000FD257C /* Position.cpp */,
 				B5C2E3521E06844000FD257C /* Position.h */,
+				B5E50A871E08015F007CD23D /* Ghost.cpp */,
+				B5E50A881E08015F007CD23D /* Ghost.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -507,6 +515,7 @@
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
+				B5E50A8B1E08030D007CD23D /* obake.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +547,7 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				B5C2E3531E06844000FD257C /* Position.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				B5E50A891E08015F007CD23D /* Ghost.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

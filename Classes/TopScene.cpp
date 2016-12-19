@@ -4,6 +4,7 @@
 #include <string>
 #include "ui/CocosGUI.h"
 #include <cmath>
+#include "Ghost.h"
 
 USING_NS_CC;
 
@@ -37,11 +38,6 @@ bool Top::init()
     scoreLabel->setPosition(Position::create(scoreLabel->getContentSize(), 0.5, 1, 0, 0.5));
     this->addChild(scoreLabel, 1);
 
-    auto sprite = Sprite::create("HelloWorld.png");
-    sprite->setPosition(Position::create(sprite->getContentSize(), 0.5, 0.5, 0, 0));
-
-    this->addChild(sprite, 0);
-
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     listener->onTouchBegan = CC_CALLBACK_2(Top::onTouchBegan, this);
@@ -53,12 +49,18 @@ bool Top::init()
     initialTouchPosition[0] = 0;
     initialTouchPosition[1] = 0;
 
-    auto touchPathLabel = Label::createWithTTF("N/A", "fonts/arial.ttf", 24);
+    touchPathLabel = Label::createWithTTF("N/A", "fonts/arial.ttf", 24);
     touchPathLabel->setPosition(Position::create(touchPathLabel->getContentSize(), 0.5, 0, 0, -0.5));
     this->addChild(touchPathLabel, 1);
-    this->touchPathLabel = touchPathLabel;
 
+    this->isSwiping = false;
     this->isCheckingPath = false;
+
+    this->ghostLayer = Layer::create();
+    this->addChild(ghostLayer, 1);
+    deltaCount = 0;
+
+    this->scheduleUpdate();
 
     return true;
 }
@@ -95,6 +97,7 @@ bool Top::onTouchBegan(Touch *touch, Event *event)
     initialTouchPosition[1] = touch->getLocation().y;
     currentTouchPosition[0] = touch->getLocation().x;
     currentTouchPosition[1] = touch->getLocation().y;
+    this->isSwiping = true;
 
     return true;
 }
@@ -107,7 +110,7 @@ void Top::onTouchMoved(Touch *touch, Event *event)
     double noCheckDistance = MIN(visibleSize.width, visibleSize.height) * 0.2;
     if (!isCheckingPath && sqrt(std::pow(diffX, 2) + std::pow(diffY, 2)) >= noCheckDistance) {
         isCheckingPath = true;
-        touchPath = 0b00111;
+        touchPath = 0b00011;
     }
 
     if (isCheckingPath) {
@@ -142,7 +145,7 @@ void Top::onTouchEnded(Touch *touch, Event *event)
         touchPathLabel->setString("error");
     }
 
-    initializeTouchPath();
+    isSwiping = false;
     isCheckingPath = false;
 }
 
@@ -153,6 +156,41 @@ void Top::onTouchCancelled(Touch *touch, Event *event)
 
 void Top::initializeTouchPath() {
     touchPath = 0b00000;
+}
+
+void Top::update(float delta) {
+    deltaCount += 1;
+    if (deltaCount % 30 == 0) {
+        deltaCount = 0;
+        if (rand() % 3 == 0) {
+            auto ghost = Ghost::create();
+            // how get size?
+            ghost->setPosition(Position::create(ghost->getContentSize(), 1, double(rand()) / double(RAND_MAX), -0.5, 0, false, true));
+            ghost->speed = 2 * double(rand()) / double(RAND_MAX) + 2;
+            ghostLayer->addChild(ghost);
+        }
+    }
+    for (auto _ghost: ghostLayer->getChildren()) {
+        // downcast?
+        auto ghost = dynamic_cast<Ghost*>(_ghost);
+        printf("%d %d\n", ghost->commands[0], touchPath);
+        if (!isSwiping && ghost->commands[0] == touchPath) {
+            ghost->commands.erase(ghost->commands.begin());
+            ghost->updateCommandSprites();
+        }
+        auto remove = RemoveSelf::create();
+        if (ghost->commands.size() == 0) {
+            ghost->runAction(remove->clone());
+            incrementScore();
+        }
+        ghost->setPosition(ghost->getPosition().x - ghost->speed, ghost->getPosition().y);
+        if (!(ghost->getBoundingBox().intersectsRect(Rect(Director::getInstance()->getVisibleOrigin(), Director::getInstance()->getVisibleSize())))) {
+            ghost->runAction(remove->clone());
+        }
+    }
+    if (!isSwiping) {
+        initializeTouchPath();
+    }
 }
 
 void Top::menuCloseCallback(Ref* pSender)

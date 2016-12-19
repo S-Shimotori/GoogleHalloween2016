@@ -16,9 +16,11 @@ private:
 
     int touchPath;  // 0b<zigzag(2.down)><zigzag(1.up)><zigzag(0.down)><horizontal><vertical>
 
+    cocos2d::Label* touchPathLabel;
+
     bool isCheckingPath;
 
-    cocos2d::Label* touchPathLabel;
+    bool isSwiping;
 
     void initializeTouchPath();
 
@@ -34,6 +36,10 @@ private:
 
     void onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *event);
 
+    cocos2d::Layer* ghostLayer;
+
+    int deltaCount;
+
 public:
     static cocos2d::Scene* createScene();
 
@@ -42,6 +48,8 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 
     CREATE_FUNC(Top);
+
+    void update(float delta);
 };
 
 #endif // __TOP_SCENE_H__
