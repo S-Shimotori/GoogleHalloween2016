@@ -3,6 +3,7 @@
 #include "Position.h"
 #include <string>
 #include "ui/CocosGUI.h"
+#include <cmath>
 
 USING_NS_CC;
 
@@ -41,6 +42,24 @@ bool Top::init()
 
     this->addChild(sprite, 0);
 
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    listener->onTouchBegan = CC_CALLBACK_2(Top::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(Top::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(Top::onTouchEnded, this);
+    listener->onTouchCancelled = CC_CALLBACK_2(Top::onTouchCancelled, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    initializeTouchPath();
+    initialTouchPosition[0] = 0;
+    initialTouchPosition[1] = 0;
+
+    auto touchPathLabel = Label::createWithTTF("N/A", "fonts/arial.ttf", 24);
+    touchPathLabel->setPosition(Position::create(touchPathLabel->getContentSize(), 0.5, 0, 0, -0.5));
+    this->addChild(touchPathLabel, 1);
+    this->touchPathLabel = touchPathLabel;
+
+    this->isCheckingPath = false;
+
     return true;
 }
 
@@ -68,6 +87,72 @@ void Top::setScoreLabel(int newScore)
 void Top::incrementScore() {
     this->score += 1;
     this->setScoreLabel(this->score);
+}
+
+bool Top::onTouchBegan(Touch *touch, Event *event)
+{
+    initialTouchPosition[0] = touch->getLocation().x;
+    initialTouchPosition[1] = touch->getLocation().y;
+    currentTouchPosition[0] = touch->getLocation().x;
+    currentTouchPosition[1] = touch->getLocation().y;
+
+    return true;
+}
+
+void Top::onTouchMoved(Touch *touch, Event *event)
+{
+    double diffX = std::abs(touch->getLocation().x - initialTouchPosition[0]);
+    double diffY = std::abs(touch->getLocation().y - initialTouchPosition[1]);
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    double noCheckDistance = MIN(visibleSize.width, visibleSize.height) * 0.2;
+    if (!isCheckingPath && sqrt(std::pow(diffX, 2) + std::pow(diffY, 2)) >= noCheckDistance) {
+        isCheckingPath = true;
+        touchPath = 0b00111;
+    }
+
+    if (isCheckingPath) {
+        // vertical line
+        double shakeX = diffY * tan(30 * M_PI / 180.0);
+        if (!((touch->getLocation().y - initialTouchPosition[1]) * (currentTouchPosition[1] - initialTouchPosition[1]) >= 0
+              && (initialTouchPosition[0] - shakeX) <= touch->getLocation().x
+              && touch->getLocation().x <= (initialTouchPosition[0] + shakeX))) { // not swipe down
+            touchPath &= 0b11110;
+        }
+
+        // horizontal line
+        double shakeY = diffX * tan(30 * M_PI / 180.0);
+        if (!((touch->getLocation().x - initialTouchPosition[0]) * (currentTouchPosition[0] - initialTouchPosition[0]) >= 0
+              && (initialTouchPosition[1] - shakeY <= touch->getLocation().y)
+              && touch->getLocation().y <= (initialTouchPosition[1] + shakeY))) { // not swipe right
+            touchPath &= 0b11101;
+        }
+    }
+
+    currentTouchPosition[0] = touch->getLocation().x;
+    currentTouchPosition[1] = touch->getLocation().y;
+}
+
+void Top::onTouchEnded(Touch *touch, Event *event)
+{
+    if ((touchPath & 0b00001) == 0b00001) {
+        touchPathLabel->setString("vertical");
+    } else if ((touchPath & 0b00010) == 0b10) {
+        touchPathLabel->setString("horizontal");
+    } else {
+        touchPathLabel->setString("error");
+    }
+
+    initializeTouchPath();
+    isCheckingPath = false;
+}
+
+void Top::onTouchCancelled(Touch *touch, Event *event)
+{
+    onTouchEnded(touch, event);
+}
+
+void Top::initializeTouchPath() {
+    touchPath = 0b00000;
 }
 
 void Top::menuCloseCallback(Ref* pSender)
