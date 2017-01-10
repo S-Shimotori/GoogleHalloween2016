@@ -20,11 +20,11 @@ void Ghost::initCommandSprites() {
     double width = this->getContentSize().width / 4.0;
     for (int i = 0; i < this->commands.size(); i++) {
         auto commandLabel = Label::create();
-        commandLabel->setTTFConfig(TTFConfig("fonts/Marker Felt.ttf", 24, GlyphCollection::DYNAMIC));
+        commandLabel->setTTFConfig(TTFConfig("fonts/arial.ttf", 24, GlyphCollection::DYNAMIC));
         if (this->commands[i] == 0b00001) {
-            commandLabel->setString("V");
+            commandLabel->setString("|");
         } else {
-            commandLabel->setString("H");
+            commandLabel->setString("-");
         }
         commandLabel->setPosition(Vec2(width * i, -1 * commandLabel->getContentSize().height / 2.0));
         this->addChild(commandLabel, 1);
