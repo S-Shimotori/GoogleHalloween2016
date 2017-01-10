@@ -61,6 +61,7 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		B583719E1E24A87A007258C3 /* majo.png in Resources */ = {isa = PBXBuildFile; fileRef = B583719D1E24A87A007258C3 /* majo.png */; };
 		B5C2E3491E0675F500FD257C /* TopScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5C2E3471E0675F500FD257C /* TopScene.cpp */; };
 		B5C2E3531E06844000FD257C /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5C2E3511E06844000FD257C /* Position.cpp */; };
 		B5E50A891E08015F007CD23D /* Ghost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5E50A871E08015F007CD23D /* Ghost.cpp */; };
@@ -167,6 +168,7 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B583719D1E24A87A007258C3 /* majo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = majo.png; sourceTree = "<group>"; };
 		B5C2E3471E0675F500FD257C /* TopScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TopScene.cpp; sourceTree = "<group>"; };
 		B5C2E3481E0675F500FD257C /* TopScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopScene.h; sourceTree = "<group>"; };
 		B5C2E3511E06844000FD257C /* Position.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Position.cpp; path = ../Models/Position.cpp; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B583719D1E24A87A007258C3 /* majo.png */,
 				B5E50A8A1E08030D007CD23D /* obake.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
@@ -514,6 +517,7 @@
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
+				B583719E1E24A87A007258C3 /* majo.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				B5E50A8B1E08030D007CD23D /* obake.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
