@@ -58,6 +58,11 @@ bool Top::init()
 
     this->ghostLayer = Layer::create();
     this->addChild(ghostLayer, 1);
+
+    this->witchSprite = Sprite::create("majo.png");
+    witchSprite->setPosition(Position::create(witchSprite->getContentSize(), 0.5, 0.25, 0, 0));
+    this->addChild(witchSprite, 1);
+
     deltaCount = 0;
 
     this->scheduleUpdate();

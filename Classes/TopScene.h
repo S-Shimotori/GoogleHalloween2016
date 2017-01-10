@@ -38,6 +38,8 @@ private:
 
     cocos2d::Layer* ghostLayer;
 
+    cocos2d::Sprite* witchSprite;
+
     int deltaCount;
 
 public:
