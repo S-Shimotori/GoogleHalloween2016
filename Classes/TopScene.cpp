@@ -170,8 +170,14 @@ void Top::update(float delta) {
         if (rand() % 3 == 0) {
             auto ghost = Ghost::create();
             // how get size?
-            ghost->setPosition(Position::create(ghost->getContentSize(), 1, double(rand()) / double(RAND_MAX), -0.5, 0, false, true));
-            ghost->speed = 2 * double(rand()) / double(RAND_MAX) + 2;
+            int side = rand() % 2;
+            ghost->setPosition(Position::create(
+                ghost->getContentSize(),
+                side, double(rand()) / double(RAND_MAX),
+                (side == 0 ? 0.5 : -1), 0,
+                false, true
+            ));
+            ghost->speed = 5 * double(rand()) / double(RAND_MAX) + 2;
             ghostLayer->addChild(ghost);
         }
     }
@@ -188,8 +194,12 @@ void Top::update(float delta) {
             ghost->runAction(remove->clone());
             incrementScore();
         }
-        ghost->setPosition(ghost->getPosition().x - ghost->speed, ghost->getPosition().y);
-        if (!(ghost->getBoundingBox().intersectsRect(Rect(Director::getInstance()->getVisibleOrigin(), Director::getInstance()->getVisibleSize())))) {
+        double distance = ghost->getPosition().getDistance(witchSprite->getPosition());
+        ghost->setPosition(
+                ghost->getPosition().x - ghost->speed * (ghost->getPositionX() - witchSprite->getPositionX()) / distance,
+                ghost->getPosition().y - ghost->speed * (ghost->getPositionY() - witchSprite->getPositionY()) / distance
+        );
+        if (ghost->getBoundingBox().intersectsRect(Rect(witchSprite->getPosition(), witchSprite->getContentSize()))) {
             ghost->runAction(remove->clone());
         }
     }
