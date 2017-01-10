@@ -6,7 +6,7 @@
 class Position
 {
 public:
-    static cocos2d::Vec2 create(cocos2d::Size size, float x, float y, float xRelative, float yRelative);
+    static cocos2d::Vec2 create(cocos2d::Size size, float x, float y, float xRelative, float yRelative, bool visibleX = false, bool visibleY = false);
 };
 
 #endif // __POSITION_H__
