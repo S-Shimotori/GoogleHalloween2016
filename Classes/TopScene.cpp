@@ -153,7 +153,7 @@ void Top::initializeTouchPath() {
 
 void Top::update(float delta) {
     deltaCount += 1;
-    if (deltaCount % 10 == 0) {
+    if (deltaCount % 20 == 0) {
         deltaCount = 0;
         if (rand() % 4 == 0) {
             auto ghost = Ghost::create();
@@ -165,7 +165,7 @@ void Top::update(float delta) {
                 (side == 0 ? 0.5 : -1), 0,
                 false, true
             ));
-            ghost->speed = 4 * double(rand()) / double(RAND_MAX) + 2;
+            ghost->speed = double(rand()) / double(RAND_MAX) + 1;
             ghostLayer->addChild(ghost);
         }
     }
