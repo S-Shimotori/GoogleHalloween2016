@@ -49,10 +49,6 @@ bool Top::init()
     initialTouchPosition[0] = 0;
     initialTouchPosition[1] = 0;
 
-    touchPathLabel = Label::createWithTTF("N/A", "fonts/arial.ttf", 24);
-    touchPathLabel->setPosition(Position::create(touchPathLabel->getContentSize(), 0.5, 0, 0, -0.5));
-    this->addChild(touchPathLabel, 1);
-
     this->isSwiping = false;
     this->isCheckingPath = false;
 
@@ -142,14 +138,6 @@ void Top::onTouchMoved(Touch *touch, Event *event)
 
 void Top::onTouchEnded(Touch *touch, Event *event)
 {
-    if ((touchPath & 0b00001) == 0b00001) {
-        touchPathLabel->setString("vertical");
-    } else if ((touchPath & 0b00010) == 0b10) {
-        touchPathLabel->setString("horizontal");
-    } else {
-        touchPathLabel->setString("error");
-    }
-
     isSwiping = false;
     isCheckingPath = false;
 }
@@ -184,7 +172,6 @@ void Top::update(float delta) {
     for (auto _ghost: ghostLayer->getChildren()) {
         // downcast?
         auto ghost = dynamic_cast<Ghost*>(_ghost);
-        printf("%d %d\n", ghost->commands[0], touchPath);
         if (!isSwiping && ghost->commands[0] == touchPath) {
             ghost->commands.erase(ghost->commands.begin());
             ghost->updateCommandSprites();

@@ -16,8 +16,6 @@ private:
 
     int touchPath;  // 0b<zigzag(2.down)><zigzag(1.up)><zigzag(0.down)><horizontal><vertical>
 
-    cocos2d::Label* touchPathLabel;
-
     bool isCheckingPath;
 
     bool isSwiping;
